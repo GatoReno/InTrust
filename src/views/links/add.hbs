@@ -1,0 +1,95 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-6 mx-auto ">
+
+            <div class="card " style="width: 100%;">
+                <div class="card-header">
+                    <p>Nuevo Proyecto {{user.name}}</p>
+                </div>
+                <div class="card-body">
+                    <form action="/links/add" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
+
+                            <label for="">Nombre Del Proyecto</label><br>
+                            <input style="width: 50%;" type="text" name="title" autofocus><br>
+
+                            <label for="">Nombre del autor</label><br>
+                            <input style="width: 50%;" type="text" name="fullname" autofocus><br>
+
+                            <label for="">Mail del autor</label><br>
+                            <input style="width: 50%;" type="mail" name="mail" autofocus><br>
+                            <label for="">Telefono del autor</label><br>
+                            <input style="width: 50%;" type="phone" name="phone" autofocus><br>
+
+                            <div class="form-group">
+                                 <label for="">Area</label><br>
+                            <select class="form-control"  style="width: 50%;" name="area" id="">
+                                <option value="1">Físico matemáticas y ciencias de la tierra</option>
+                                <option value="2">Biología y química</option>
+                                <option value="3">Medicina y ciencias de la salud</option>
+                                <option value="4">Humanidades y ciencias de la conducta</option>
+                                <option value="5">Ciencias sociales y economía</option>
+                                <option value="6">Biotecnología y ciencias agropecuarias</option>
+                                <option value="7">Ciencias de la ingeniería</option>
+                                <option value="8">Investigación multidisciplinaria</option>
+
+                            </select>
+                            </div>
+
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-6 mx-auto ">
+
+            <div class="card " style="width: 100%;">
+                <div class="card-header">
+                    <p>...</p>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
+
+                        <label for="">URL - Página web</label><br>
+                        <input style="width: 50%;" type="url" name="url" autofocus><br>
+
+                        <label for="">Enlace video de youtube</label><br>
+                        <input style="width: 50%;" type="url" name="urlyt" autofocus><br>
+
+                        <label for="">Imagen o logo</label><br>
+                        <input style="width: 50%;" enctype="multipart/form-data" type="file" name="img" autofocus><br>
+
+                        <label for="">One Paper - PDF</label><br>
+                        <input style="width: 50%;" enctype="multipart/form-data"{{! thnk's multer :3 }} type="file" name="onepaper" autofocus><br>
+
+                        <label for="">Nombre de la universidad</label><br>
+                        <input style="width: 50%;" type="text" name="fullname" autofocus><br>
+
+                        <label for="">Mail del Investigador</label><br>
+                        <input style="width: 50%;" type="mail" name="name_investigator" autofocus><br>
+
+
+
+                        <label for="">Nombre del Investigador</label><br>
+                        <input style="width: 50%;" type="text" name="name_investigator" autofocus><br>
+
+
+                        <label for="">Descripción</label><br>
+                        <textarea style="width: 100%;" name="descrip" placeholder="Descripción de proyecto">
+                                    </textarea>
+                        <br>
+                        <br>
+                        <div class="card-footer">
+                            <input type="submit" value="Generar nuevo proyecto" class="btn btn-secondary   pull-right">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
