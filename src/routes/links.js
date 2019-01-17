@@ -2,47 +2,23 @@
 
 const express = require('express');
 const router = express.Router();
-
 const image2base64 = require('image-to-base64');
-const multer= require('multer');
+
+var multer  =   require('multer');
 const storage = multer.diskStorage({
-    destination : (req,file,cb) => {
-             cb(null,'./uploads/');
+    destination : function(req, file, cb){
+        cb(null, 'uploads/');
     },
-    filename : (req,file,cb)=>{
-        cb(null,Date.now()+file.originalname);
-    }
+filename : function(req, file, cb){
+    cb(null, file.originalname );
+}
+
 });
 
-const upload = multer({storage:storage});
+const upload = multer({storage : storage});
 
-/*
-const storage = multer.diskStorage({
-    destination : (req,file,cb)=>{
-        cb(null,'./uploads/');
-    },
-    filename : (req,file,cb)=>{
-        cb(null, new Date().toISOString()+file.filename);
-    }
-});
+  
 
-const fileFilter = (req,file,cb) =>{
-    if(file.mimetype === 'image/jpeg' 
-    || file.mimetype === 'image/png'){
-        cb(null,true);
-    }else{
-        cb(null,false);
-        console.log('file rejected');
-    }
-};
-
-const upload = multer({
-    storage:storage,
-    limits:{
-    fileSize: 1024 * 1024 * 5},
-    fileFilter : fileFilter
-,});
-*/
 
 const pool = require('../../db');
 const {
@@ -63,43 +39,42 @@ router.get('/x', (req, res) => {
 
 
 //añadir proyecto upload.array("uploads",2),
-router.post('/add', isLoggedIn, upload.any(), async (req, res) => {
-    //obteniendo datos
-    console.log(req.files);
-
-    //console.log(req.files[i].path);
-
-
+router.post('/add', isLoggedIn,upload.array('fx', 2 ), async (req, res) => {
  
-
-    //inteno de image-2base64
-
-    /* console.log(req.body);
-    image2base64(pdf) // you can also to use url
-    .then(
-        (response) => {
-            console.log(response); //cGF0aC90by9maWxlLmpwZw==
+    //console.log(req.body);
+    //console.log(req.files);
+    
+    let {path,originalname} = req.files[1];
+    const img64 = image2base64('uploads/'+originalname).then(
+        (resp)=>{
+            console.log('image converted');
+            newLink.img = resp;
         }
-    )
-    .catch(
-        (error) => {
-            console.log(error); //Exepection error....
+    ).catch(
+        (errs)=>{
+            console.log(errs)
         }
-    )
+    );
 
-/*
-    /*
-
-    // primer insert de proyectos
-    const newLink = { 
+        const newLink = { 
         //este json es que le vamos a mandar al query por tanto los nombres de los objetos
         //deben de coincidir con los nombres de las tablas para poder hacer el query
-        title : name,
-        url,
-        description : descrip
+        title : req.body.title,       
+        fullname : req.body.fullname,
+        mail : req.body.mail,
+        phone : req.body.phone,
+        area : req.body.area,
+        url : req.body.url,
+        urlyt : req.body.urlyt,
+        university  : req.body.univer ,
+        mail_investigator : req.body.mail_investigator,
+        name_investigator :req.body.name_investigator,
+        description : req.body.descrip, 
         
-    };
-
+        cvu: req.body.cvu,
+        phone: req.body.phone,
+        Id_usercreated: req.body.Id_usercreated};
+        
   
     console.log(newLink);
     //for(i= 0; i < 100; i++){
@@ -113,7 +88,7 @@ router.post('/add', isLoggedIn, upload.any(), async (req, res) => {
     res.redirect('/links/proyectos');
     //
 
-    */
+
 });
 
 //ruta proyectos
@@ -159,7 +134,7 @@ router.get('/update/:id', isLoggedIn, async (req, res) => {
     const links = await pool.query('Select * from Links where id  = ?', [id]);
 
 
-    //console.log(links[0])
+    console.log(links[0])
 
     res.render('links/edit', {
         links: links[0]

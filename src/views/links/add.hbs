@@ -7,7 +7,7 @@
                     <p>Nuevo Proyecto {{user.name}}</p>
                 </div>
                 <div class="card-body">
-                    <form action="/links/add" method="POST">
+                    <form action="/links/add" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
 
@@ -52,8 +52,7 @@
                 <div class="card-body">
 
                     <div class="form-group">
-                        <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
-
+                        
                         <label for="">URL - Página web</label><br>
                         <input style="width: 50%;" type="url" name="url" autofocus><br>
 
@@ -61,21 +60,33 @@
                         <input style="width: 50%;" type="url" name="urlyt" autofocus><br>
 
                         <label for="">Imagen o logo</label><br>
-                        <input style="width: 50%;" enctype="multipart/form-data" type="file" name="img" autofocus><br>
+                        <input style="width: 50%;" enctype="multipart/form-data" type="file" name="fx" autofocus><br>
 
                         <label for="">One Paper - PDF</label><br>
-                        <input style="width: 50%;" enctype="multipart/form-data"{{! thnk's multer :3 }} type="file" name="onepaper" autofocus><br>
+                        <input style="width: 50%;" enctype="multipart/form-data"{{! thnk's multer :3 }} type="file" name="fx" autofocus><br>
+
+                        <script>
+                            const input = document.querySelector('input[type="file"]');
+                            input.addEventListener('change',(e)=>{
+                                console.log(input.files);
+
+                                const reader = new FileReader();
+                            },false);
+                        </script>
 
                         <label for="">Nombre de la universidad</label><br>
-                        <input style="width: 50%;" type="text" name="fullname" autofocus><br>
+                        <input style="width: 50%;" type="text" name="univer" autofocus><br>
 
                         <label for="">Mail del Investigador</label><br>
-                        <input style="width: 50%;" type="mail" name="name_investigator" autofocus><br>
+                        <input style="width: 50%;" type="mail" name="mail_investigator" autofocus><br>
 
 
 
                         <label for="">Nombre del Investigador</label><br>
                         <input style="width: 50%;" type="text" name="name_investigator" autofocus><br>
+                        
+                        <label for="">Num del Investigador</label><br>
+                        <input style="width: 50%;" type="text" name="cvu" autofocus><br>
 
 
                         <label for="">Descripción</label><br>
@@ -93,3 +104,4 @@
 
         </div>
     </div>
+

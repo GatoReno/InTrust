@@ -1,5 +1,3 @@
-//dep
-
 const express = require('express');
 const hbs = require('express-handlebars');
 const morgan = require('morgan');
@@ -77,15 +75,3 @@ app.listen(app.get('port'), () => {
     
 });
 
-
-/*
-app.use(session({
-    secret : "secret",
-    proxy: true,
-    resave: true,
-    saveUninitialized: true
-}));
-*/
-
-
- 

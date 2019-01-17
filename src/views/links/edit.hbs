@@ -10,6 +10,8 @@
                 <div class="card-body">
                     <form action="edit/{{links.id}}" method="POST">
                         <div class="form-group">
+                            <label for="">Img</label>
+                            <img style='display:block; width:100px;height:100px;' id='base64image' src='data:image/jpeg;base64, {{links.img}}'>
                             <label for="">Nombre Del Proyecto</label><br>
                             <input style="width: 50%;" type="text" name="name" autofocus><br>
 
