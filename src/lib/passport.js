@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const pool = require('../../db');
+const image2base64 = require('image-to-base64');
 
 const helpers = require('../lib/helpers');
 
@@ -38,12 +39,15 @@ passport.use('local.signin', new LocalStrategy({
        // return done(null,req.flash('message','yeah :3'));
 }));
 
+
+
+
 passport.use('local.signup', new LocalStrategy({
     usernameField : 'name',
     passwordField : 'pass',
     passReqToCallback : true
 }, async (req,name,pass,done) => {
-   //console.log(req.body);
+   console.log(req.body);
 
 
     const newUser = {

@@ -7,7 +7,7 @@ const session = require('express-session');
 const mySQLsession = require('express-mysql-session');
 const {db} = require('../keys');
 const passport = require('passport');
-
+//var favicon = require('serve-favicon');
 
 //init's
  
@@ -66,6 +66,8 @@ app.use('/links',require('./routes/links'));
 
 //public
 app.use(express.static(path.join(__dirname,'public')));
+//app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
 //... end public
 
 //start

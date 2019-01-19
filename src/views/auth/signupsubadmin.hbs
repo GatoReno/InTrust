@@ -1,0 +1,257 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-6 mx-auto ">
+
+            <div class="card " style="width: 100%;">
+                <div class="card-header">
+                    <p>Sub administrador creado por el usuario: <b>{{user.name}}</b></p>
+                </div>
+                <div class="card-body">
+                    <form action="/signup/subadmin" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <img src="" id="holder-img" alt="" width="200"><br>
+
+
+                            <label for="">Imagen o logo</label><br>
+                            <input style="width: 50%;" enctype="multipart/form-data" type="file" name="fx" autofocus><br>
+
+
+                            <script>
+                                const input = document.querySelector('input[type="file"]');
+                                input.addEventListener('change', (e) => {
+                                    console.log(input.files);
+
+                                    const reader = new FileReader();
+                                }, false);
+                            </script>
+
+                            <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
+
+                            <label for="">Nombre Del sub-Administrador</label><br>
+                            <input style="width: 50%;" type="text" name="name" autofocus required><br>
+
+                            <label for="">Nombre del autor</label><br>
+                            <input style="width: 50%;" type="text" name="fullname" autofocus required><br>
+
+                            <label for="">Mail</label><br>
+                            <input style="width: 50%;" type="mail" name="mail" autofocus required><br>
+                            <label for="">Telefono</label><br>
+                            <input style="width: 50%;" type="phone" name="phone" autofocus required><br>
+
+                            <label for="">Password</label><br>
+                            <input style="width: 50%;" type="password" name="pass" autofocus required><br>
+
+                           
+
+
+
+
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-6 mx-auto ">
+
+            <div class="card " style="width: 100%;">
+                <div class="card-header">
+                    <p>...</p>
+
+                </div>
+                <div class="card-body">
+                     <br>
+                            <div class="form-group">
+                                <label for="">Genero</label>
+                                <select name="gender" id="">
+                                    <option value="1">Hombre</option>
+                                    <option value="2">Mujer</option>
+                                </select>
+                            </div>
+                    <label for="">Fecha de nacimiento</label><br>
+                    <input name="datenac" type="date"><br>
+
+
+
+
+
+                    <label for="">Calle</label><br>
+                    <input style="width: 50%;" type="text" name="calle" autofocus><br>
+
+
+                    <label for="">Colonia</label><br>
+                    <input style="width: 50%;" type="text" name="fullncoloniaame" autofocus><br>
+
+
+                    <br>
+
+
+  
+
+                    <div class="form-group">
+                        <select name="estados" name="estado" id="estados"></select>
+                    </div>
+
+
+
+                    <label for="">codigo postalr</label><br>
+                    <input style="width: 50%;" type="text" name="cp" size="5" autofocus><br>
+
+
+                    <br>
+                </div>
+                 <input type="submit" value="Agregar nuevo sub-Admin">
+
+                </form>
+            </div>
+
+        </div>
+        <div class="col-lg12 pull-right">
+               
+        </div>
+    </div>
+
+
+                      <script>
+
+                        $(document).ready(function () {
+                            const temp = [
+                                {
+                                    "id": 1,
+                                    "name": "Aguascalientes"
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "Baja California"
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "Baja California Sur"
+                                },
+                                {
+                                    "id": 4,
+                                    "name": "Campeche"
+                                },
+                                {
+                                    "id": 5,
+                                    "name": "Coahuila"
+                                },
+                                {
+                                    "id": 6,
+                                    "name": "Colima"
+                                },
+                                {
+                                    "id": 7,
+                                    "name": "Chiapas"
+                                },
+                                {
+                                    "id": 8,
+                                    "name": "Chihuahua"
+                                },
+                                {
+                                    "id": 9,
+                                    "name": "Distrito Federal"
+                                },
+                                {
+                                    "id": 10,
+                                    "name": "Durango"
+                                },
+                                {
+                                    "id": 11,
+                                    "name": "Guanajuato"
+                                },
+                                {
+                                    "id": 12,
+                                    "name": "Guerrero"
+                                },
+                                {
+                                    "id": 13,
+                                    "name": "Hidalgo"
+                                },
+                                {
+                                    "id": 14,
+                                    "name": "Jalisco"
+                                },
+                                {
+                                    "id": 15,
+                                    "name": "México"
+                                },
+                                {
+                                    "id": 16,
+                                    "name": "Michoacán"
+                                },
+                                {
+                                    "id": 17,
+                                    "name": "Morelos"
+                                },
+                                {
+                                    "id": 18,
+                                    "name": "Nayarit"
+                                },
+                                {
+                                    "id": 19,
+                                    "name": "Nuevo León"
+                                },
+                                {
+                                    "id": 20,
+                                    "name": "Oaxaca"
+                                },
+                                {
+                                    "id": 21,
+                                    "name": "Puebla"
+                                },
+                                {
+                                    "id": 22,
+                                    "name": "Querétaro"
+                                },
+                                {
+                                    "id": 23,
+                                    "name": "Quintana Roo"
+                                },
+                                {
+                                    "id": 24,
+                                    "name": "San Luis Potosí"
+                                },
+                                {
+                                    "id": 25,
+                                    "name": "Sinaloa"
+                                },
+                                {
+                                    "id": 26,
+                                    "name": "Sonora"
+                                },
+                                {
+                                    "id": 27,
+                                    "name": "Tabasco"
+                                },
+                                {
+                                    "id": 28,
+                                    "name": "Tamaulipas"
+                                },
+                                {
+                                    "id": 29,
+                                    "name": "Tlaxcala"
+                                },
+                                {
+                                    "id": 30,
+                                    "name": "Veracruz"
+                                },
+                                {
+                                    "id": 31,
+                                    "name": "Yucatán"
+                                },
+                                {
+                                    "id": 32,
+                                    "name": "Zacatecas"
+                                }
+                            ];
+                            var $select = $('#estados');
+
+                            //alert(options);
+                          
+
+                            $.each(temp, function (id, name) {
+                                $select.append('<option value=' + name.name + '>' + name.name + '</option>');
+                            });
+                        });
+                    </script>

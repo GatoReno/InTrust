@@ -3,21 +3,28 @@
 const express = require('express');
 const router = express.Router();
 const image2base64 = require('image-to-base64');
+var fs = require('fs');
+//const PDFDocument = require('pdfkit');
+const pdf2base64 = require('pdf-to-base64');
 
-var multer  =   require('multer');
+
+//multer config
+var multer = require('multer');
 const storage = multer.diskStorage({
-    destination : function(req, file, cb){
+    destination: function (req, file, cb) {
         cb(null, 'uploads/');
     },
-filename : function(req, file, cb){
-    cb(null, file.originalname );
-}
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
 
 });
 
-const upload = multer({storage : storage});
+const upload = multer({
+    storage: storage
+});
+//*
 
-  
 
 
 const pool = require('../../db');
@@ -37,58 +44,82 @@ router.get('/x', (req, res) => {
 });
 
 
-
 //añadir proyecto upload.array("uploads",2),
-router.post('/add', isLoggedIn,upload.array('fx', 2 ), async (req, res) => {
- 
+router.post('/add', isLoggedIn, upload.array('fx', 2), async (req, res) => {
+
     //console.log(req.body);
     //console.log(req.files);
-    
-    let {path,originalname} = req.files[1];
-    const img64 = image2base64('uploads/'+originalname).then(
-        (resp)=>{
+
+    let originalname = req.files[0].originalname;
+    const img64 = image2base64('uploads/' + originalname).then(
+        (resp) => {
             console.log('image converted');
             newLink.img = resp;
         }
     ).catch(
-        (errs)=>{
+        (errs) => {
             console.log(errs)
         }
     );
 
-        const newLink = { 
+    let originalnamepdf = req.files[1].originalname;
+    const pdf64 = pdf2base64('uploads/' + originalnamepdf)
+    .then(
+        (respdf) => {
+            console.log('pdf converted');
+                newLink.onepayer = respdf;
+                //console.log(response); //cGF0aC90by9maWxlLmpwZw==
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error); //Exepection error....
+        }
+    )
+
+
+
+    const newLink = {
         //este json es que le vamos a mandar al query por tanto los nombres de los objetos
         //deben de coincidir con los nombres de las tablas para poder hacer el query
-        title : req.body.title,       
-        fullname : req.body.fullname,
-        mail : req.body.mail,
-        phone : req.body.phone,
-        area : req.body.area,
-        url : req.body.url,
-        urlyt : req.body.urlyt,
-        university  : req.body.univer ,
-        mail_investigator : req.body.mail_investigator,
-        name_investigator :req.body.name_investigator,
-        description : req.body.descrip, 
-        
+        title: req.body.title,
+        fullname: req.body.fullname,
+        mail: req.body.mail,
+        phone: req.body.phone,
+        area: req.body.area,
+        url: req.body.url,
+        urlyt: req.body.urlyt,
+        university: req.body.univer,
+        mail_investigator: req.body.mail_investigator,
+        name_investigator: req.body.name_investigator,
+        description: req.body.descrip,
+
         cvu: req.body.cvu,
         phone: req.body.phone,
-        Id_usercreated: req.body.Id_usercreated};
-        
-  
-    console.log(newLink);
-    //for(i= 0; i < 100; i++){
-        await pool.query('INSERT INTO LINKS set ?',[newLink]);
-    //}
+        Id_usercreated: req.body.Id_usercreated
+    };
 
-    req.flash('success','Proyecto Generado');
-    //res.send('recibido');
-    const msn = 'creado con éxito';
-    //res.render('links/createsuccess',{newLink,msn});
-    res.redirect('/links/proyectos');
+    console.log(newLink);
+    try{
+        await pool.query('INSERT INTO LINKS set ?', [newLink]);
+        //}
+    
+        fs.unlinkSync('uploads/' + originalname);
+        req.flash('success', 'Proyecto Generado');
+        //res.send('recibido');
+        const msn = 'creado con éxito';
+        //res.render('links/createsuccess',{newLink,msn});
+        res.redirect('/links/proyectos');
+    }catch(err){
+        res.redirect('/profile/', 500, req.flash('errores', err.name + ':' + err.message));
+    }
+
+    
+    //for(i= 0; i < 100; i++){
+
     //
 
-
+    
 });
 
 //ruta proyectos
@@ -144,6 +175,25 @@ router.get('/update/:id', isLoggedIn, async (req, res) => {
 router.get('/proyect', (req, res) => {
     res.render('links/formEmprendedor');
 });
+
+
+
+router.get('/view-proyect/:id',async (req,res)=>{
+    
+    const { id } = req.params;
+    console.log(id);
+
+    const links = await pool.query('Select * from Links where id  = ?', [id]);
+
+
+    console.log(links[0]);
+
+    res.render('links/view-proyect/', {
+        links: links[0]
+    });
+});
+
+
 
 
 //query de edición

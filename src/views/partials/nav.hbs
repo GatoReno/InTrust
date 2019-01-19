@@ -28,16 +28,21 @@
                             <ul class="nav">
                                 <li class=""><a href="/signin">Iniciar sesión</a></li>
 
-                                <li class="nav-item"><a href="/profile">Registro</a></li>
+                                <li class="nav-item"><a href="/signup">Registro</a></li>
 
                             </ul>
                         </div>
                     </li>
 
+                    {{#if user.admin}}
+                    <li><a href="/profile">Panel Admin</a></li>
+
+                    {{/if}}
+
 
                     {{#if user}}
-                  
-                    
+
+
 
 
                     <li class="nav-item dropdown">
@@ -55,8 +60,8 @@
                         </div>
                     </li>
                     <script>
-                            var divOne = document.getElementById('registro');
-                            divOne.style.display='none';
+                        var divOne = document.getElementById('registro');
+                        divOne.style.display = 'none';
                     </script>
                     {{/if}}
 

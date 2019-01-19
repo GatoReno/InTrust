@@ -48,12 +48,17 @@
 
         </div>
     </div>
+
+
+
+    {{!-- ADMIN --}}
     {{#if user.admin}}
 
     <div class="row">
         <h3>Admin</h3>
 
         <div class="">
+            {{!-- Navegador de pestañas --}}
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Perfil Admin</a></li>
                 <li><a data-toggle="tab" href="#menu1">Admin</a></li>
@@ -78,7 +83,8 @@
 
                         </div>
                         <div class="avatar">
-                            <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                            <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{user.img}}'>
+
                         </div>
                         <div class="info">
                             <div class="title">
@@ -104,12 +110,22 @@
                         </div>
                     </div>
                 </div>
+
+                {{!-- Pestañas --}}
                 <div id="menu1" class="tab-pane fade p3">
-                    <h3>Admin Info</h3>
-                    <p>Some content in menu 1.</p>
+                    <h3>Admin/sub-Admin</h3>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/signup/subadmin">Agregar sub-Admin</a></li>
+                            <li class="breadcrumb-item"><a href="#">Ver Lista </a></li>
+                            <li class="breadcrumb-item active" aria-current="page"></li>
+                        </ol>
+                    </nav>
                     {{#each json.admins}}
                     <div class="col-12 col-sm-6  col-md-4 col-lg-3">
                         <div class="card text-center">
+                            <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{img}}'>
                             <a href="">
                                 <a href="{{id_user}}" target=".blanck">
                                     <h3 class="card-title text-uppercase">
@@ -119,7 +135,7 @@
                             </a>
                             <div class="card-body ">
                                 <div>
-                                    {{pass}}
+                                    {{mail}}
                                 </div>
                                 <div>
                                     {{url}}
@@ -159,15 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{else}}
-                                <div class="col-12 ">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            <p>No hay proyectos</p>
-                                            <a href="/links/add" class="btn btn-default">Añadir proyecto</a>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 {{/each}}
 
@@ -187,15 +195,8 @@
                             </div>
                         </div>
                     </div>
-                    {{else}}
-                    <div class="col-12 ">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <p>No hay proyectos</p>
-                                <a href="/links/add" class="btn btn-default">Añadir proyecto</a>
-                            </div>
-                        </div>
-                    </div>
+
+
 
                     {{/each}}
                     {{! termina menu 1}}
@@ -219,6 +220,7 @@
 
                     {{#each json.links}}
                     <div class="col-12 col-sm-6  col-md-4 col-lg-3">
+
                         <div class="card text-center">
                             <a href="">
                                 <a href="{{url}}" target=".blanck">
@@ -234,53 +236,15 @@
                                 <div>
                                     {{url}}
                                 </div>
-                                {{#each json.links}}
-                                <div class="col-12 col-sm-6  col-md-4 col-lg-3">
-                                    <div class="card text-center">
-                                        <a href="">
-                                            <a href="{{url}}" target=".blanck">
-                                                <h3 class="card-title text-uppercase">
-                                                    {{name}}
-                                                </h3>
-                                            </a>
-                                        </a>
-                                        <div class="card-body ">
-                                            <div>
-                                                {{title}}
-                                            </div>
-                                            <div>
-                                                id user : {{id_user}}
-                                            </div>
 
 
 
-                                        </div>
-                                        <div class="card-footer">
-                                            <div>
-                                                <br>
-                                                <a href="{{id}}" class="btn btn-default btn-sm">Info</a>
+                                <div>
+                                    <br>
+                                    <a href="/links/view-proyect/{{id}}" class="btn btn-default btn-sm">Ver Proyecto</a>
 
 
-                                            </div>
-                                            <div>
-                                                <br>
-                                                creado el día: {{timeago created_at}}
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                {{else}}
-                                <div class="col-12 ">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            <p>No hay proyectos</p>
-                                            <a href="/links/add" class="btn btn-default">Añadir proyecto</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{/each}}
-
 
                             </div>
                             <div class="card-footer">
@@ -296,6 +260,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                     {{else}}
                     <div class="col-12 ">
