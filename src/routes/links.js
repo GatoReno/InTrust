@@ -178,21 +178,56 @@ router.get('/proyect', (req, res) => {
 
 
 
-router.get('/view-proyect/:id',async (req,res)=>{
+router.get('/viewproyect/:id',async (req,res)=>{
     
+
     const { id } = req.params;
     console.log(id);
 
     const links = await pool.query('Select * from Links where id  = ?', [id]);
+    const goals = await pool.query('Select * from Goals where id_proyecto = ? ',[id]);
+    const owners = await pool.query('Select * from Users where owner = 1');
 
 
     console.log(links[0]);
+    console.log(goals[0]);
 
-    res.render('links/view-proyect/', {
-        links: links[0]
+    res.render('links/viewproyect', {
+        links: links[0],
+        goals: goals,
+        owners: owners
     });
 });
 
+
+router.post('/add/goal/',async (req,res) =>{
+    
+
+const newGoal = {
+    id_proyecto: req.body.id_proyecto,
+    id_owner: req.body.id_owner,
+    Id_usercreated: req.body.id_user,
+    title: req.body.title,
+    descrip: req.body.descrip,
+    init: req.body.init,
+    end: req.body.end,
+    status: '1'
+};
+
+console.log(newGoal)
+try{
+    await pool.query('Insert into Goals set ?',[newGoal]);
+    req.flash('success', 'Meta Generada con éxito');
+    res.redirect('/links/viewproyect/'+newGoal.id_proyecto);
+    
+}
+catch(e){
+    req.flash('errores', 'Error : '+e);
+    res.redirect('/links/viewproyect/'+newGoal.id_proyecto);
+    console.log(e)
+}
+
+});
 
 
 

@@ -1,0 +1,228 @@
+<div class="row">
+    {{#if links}}
+    <div class="col-xs-10 col-sm-9  col-md-4 col-lg-10">
+        <div class="card ">
+            <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{links.img}}'>
+
+            <p>creado el día: {{timeago created_at}}</p>
+
+            <a href="#" title='proyecto.pdf'>clica aqui</a>
+
+
+            <script>
+
+                function downloadPDF(pdf) {
+                    const linkSource = `data:application/pdf;base64,${pdf}`;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "vct_illustration.pdf";
+
+                    downloadLink.href = linkSource;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                }
+
+            </script>
+
+            <script>
+                /* window.downloadPDF = function downloadPDF() {
+
+                     var pdf = "{{links.onepayer}}";
+
+                     var dlnk = document.getElementById('dwnldLnk');
+                     dlnk.href = pdf;
+
+                     dlnk.click();
+
+                 }
+                */
+            </script>
+            <br>
+            <a href="">{{links.phone}}</a>
+            <a href="">
+
+
+                <a href="{{links.url}}" target=".blanck">
+                    <h3 class="card-title text-uppercase">
+                        <h4>{{links.title}}</h4>
+                    </h3>
+                </a>
+            </a>
+            <div class="card-body ">
+                <div>
+                    {{links.description}}
+                </div>
+                <div>
+                    {{links.url}}
+                </div>
+            </div>
+            <div class="card-footer">
+                <div>
+                    <br>
+
+                    {{!--
+                    <a href="/links/delete/{{id}}" class="btn btn-default btn-sm">Delete</a>
+                    <a href="/links/update/{{id}}" class="btn btn-default btn-sm">Update</a>
+                    --}}
+                </div>
+                <div>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Admin area --}}
+
+
+
+
+
+
+    {{else}}
+    <div class="col-12 ">
+        <div class="card text-center">
+            <div class="card-body">
+                <p>No hay proyectos</p>
+
+            </div>
+        </div>
+    </div>
+
+    {{/if}}
+</div>
+{{#if user.admin}}
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Proyecto</a></li>
+        <li><a data-toggle="tab" href="#menu1metas">Metas</a></li>
+        <li><a data-toggle="tab" href="#menu2noticias">Noticias</a></li>
+    </ul>
+
+    <div class="tab-content ">
+        <div id="home" class="tab-pane fade in active p3">
+            <h3>Gestor de proyecto</h3>
+
+
+
+        </div>
+        <div id="menu1metas" class="tab-pane fade p3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="" data-toggle="modal" data-target="#exampleModal">Agregar
+                            Meta</a></li>
+                </ol>
+            </nav>
+            <div class="col-lg-6">
+                {{#if goals}}
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre Meta</th>
+                            <th scope="col">Fecha inicial</th>
+                            <th scope="col">Fecha de cierre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each goals}}
+                        <tr>
+                            <th>{{title}}</th>
+                            <td>{{init}}</td>
+                            <td>{{end}}</td>
+                            <td>{{descrip}}</td>
+                            <td>
+
+                                {{#switch status}}
+                                {{#case "1"}}
+                                en espera
+                                {{/case}}
+                                {{#case "2"}}
+                                en proceso
+                                {{/case}}
+                                {{#case "3"}}
+                                alcanzado
+                                {{/case}}
+                                {{/switch}}
+                            </td>
+                            <td>
+                                <a class="btn btn-default" href="" type="text" value="Update">Update</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="" type="text" value="Eliminar">Eliminar</a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+                {{else}} <p>Este poryecto no tiene metas</p>
+
+
+
+                {{/if}}
+
+
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+        <div id="menu2noticias" class="tab-pane fade p3">
+            <h3>Noticias</h3>
+            <p>Some content in menu 2.</p>
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Meta - Proyecto <b>{{links.title}}</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/links/add/goal/" method="post">
+                        <input type="text" class="hide" name="id_proyecto" value="{{links.id}}">
+                        <input type="text" class="hide" name="id_user" value="{{user.id_user}}">
+                        <label for="" name="">Título </label>
+                        <br>
+
+                        <input type="text" name="title" class="form-item" required><br><br>
+                        <div class="form-group">
+                            <select name="id_owner" id="" required>
+                                {{#each owners}}
+                                <option value="{{id_user}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <br>
+                        <input class="form-group" type="date" name="init" required><br>
+                        <input type="date" class="form-group" name="end" required><br>
+
+
+                        <label for="">Descripción</label><br>
+                        <textarea name="descrip" size="500" id="" width="100%" cols="30" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!Admin user end}}
+    {{/if}}
