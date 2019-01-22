@@ -1,6 +1,23 @@
 <div class="row">
     {{#if links}}
-    <div class="col-xs-10 col-sm-9  col-md-4 col-lg-10">
+    <style>
+
+    </style>
+
+    <div class="col-xs-12 col-sm-9  col-md-12 col-lg-12" align="center">
+        <div class="parallax" align="center">
+            <!-- Parallax Container element
+                                     <img style=' width:100%;height:240px;'  src='data:image/jpeg;base64, {{links.imgt}}'>
+
+                          -->
+checar parallax
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-9  col-md-4 col-lg-12 top2">
+
+
+        <!-- Container element -->
         <div class="card ">
             <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{links.img}}'>
 
@@ -21,21 +38,10 @@
                     downloadLink.click();
                 }
 
+
             </script>
 
-            <script>
-                /* window.downloadPDF = function downloadPDF() {
 
-                     var pdf = "{{links.onepayer}}";
-
-                     var dlnk = document.getElementById('dwnldLnk');
-                     dlnk.href = pdf;
-
-                     dlnk.click();
-
-                 }
-                */
-            </script>
             <br>
             <a href="">{{links.phone}}</a>
             <a href="">
@@ -113,13 +119,79 @@
                             Meta</a></li>
                 </ol>
             </nav>
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 {{#if goals}}
+                <div class="table-wrapper-scroll-y">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre </th>
+                                <th scope="col">Fecha inicial</th>
+                                <th scope="col">Fecha de cierre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                            {{#each goals}}
+                            <tr>
+                                <th>{{title}}</th>
+                                <td>{{init}}</td>
+                                <td>{{end}}</td>
+                                <td>{{descrip}}</td>
+                                <td>
+
+                                    {{#switch status}}
+                                    {{#case "1"}}
+                                    <div class="alert alert-danger" role="alert">
+                                        <p>En espera</p>
+                                    </div>
+                                    {{/case}}
+                                    {{#case "2"}}
+                                    <div class="alert alert-info" role="alert">
+                                        <p>Alcanzado</p>
+                                    </div> {{/case}}
+                                    {{#case "3"}}
+                                    <div class="alert alert-success" role="alert">
+                                        <p>Alcanzado</p>
+                                    </div>
+
+                                    {{/case}}
+                                    {{/switch}}
+                                </td>
+                                <td>
+                                    <a class="btn btn-default" href="" type="text" value="Update">Update</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="" type="text" value="Eliminar">Eliminar</a>
+                                </td>
+
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                {{else}} <p>Este poryecto no tiene metas</p>
+
+
+
+                {{/if}}
+
+
+            </div>
+
+        </div>
+        <div id="menu2noticias" class="tab-pane fade p3">
+            <h3>Noticias</h3>
+            {{#if goals}}
+            <div class="table-wrapper-scroll-y">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Nombre Meta</th>
+                            <th scope="col">Nombre </th>
                             <th scope="col">Fecha inicial</th>
                             <th scope="col">Fecha de cierre</th>
                             <th scope="col">Descripción</th>
@@ -128,7 +200,7 @@
                     </thead>
                     <tbody>
 
-                        {{#each goals}}
+                        {{#each news}}
                         <tr>
                             <th>{{title}}</th>
                             <td>{{init}}</td>
@@ -138,13 +210,19 @@
 
                                 {{#switch status}}
                                 {{#case "1"}}
-                                en espera
+                                <div class="alert alert-danger" role="alert">
+                                    <p>En espera</p>
+                                </div>
                                 {{/case}}
                                 {{#case "2"}}
-                                en proceso
-                                {{/case}}
+                                <div class="alert alert-info" role="alert">
+                                    <p>Alcanzado</p>
+                                </div> {{/case}}
                                 {{#case "3"}}
-                                alcanzado
+                                <div class="alert alert-success" role="alert">
+                                    <p>Alcanzado</p>
+                                </div>
+
                                 {{/case}}
                                 {{/switch}}
                             </td>
@@ -160,21 +238,13 @@
 
                     </tbody>
                 </table>
-                {{else}} <p>Este poryecto no tiene metas</p>
-
-
-
-                {{/if}}
-
-
             </div>
-            <div class="col-lg-6">
 
-            </div>
-        </div>
-        <div id="menu2noticias" class="tab-pane fade p3">
-            <h3>Noticias</h3>
-            <p>Some content in menu 2.</p>
+            {{else}} <p>Este poryecto no tiene metas</p>
+
+
+
+            {{/if}}
         </div>
 
     </div>

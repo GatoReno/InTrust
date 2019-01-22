@@ -21,20 +21,34 @@
                             <input style="width: 50%;" type="mail" name="mail" autofocus><br>
                             <label for="">Telefono del autor</label><br>
                             <input style="width: 50%;" type="phone" name="phone" autofocus><br>
+                            <label for="">Nombre de la universidad</label><br>
+                            <input style="width: 50%;" type="text" name="univer" autofocus><br>
 
+                            <label for="">Mail del Investigador</label><br>
+                            <input style="width: 50%;" type="mail" name="mail_investigator" autofocus><br>
+
+
+
+                            <label for="">Nombre del Investigador</label><br>
+                            <input style="width: 50%;" type="text" name="name_investigator" autofocus><br>
+
+                            <label for="">Num del Investigador</label><br>
+                            <input style="width: 50%;" type="text" name="cvu" autofocus><br>
+
+                            <br>
                             <div class="form-group">
-                                 <label for="">Area</label><br>
-                            <select class="form-control"  style="width: 50%;" name="area" id="">
-                                <option value="1">Físico matemáticas y ciencias de la tierra</option>
-                                <option value="2">Biología y química</option>
-                                <option value="3">Medicina y ciencias de la salud</option>
-                                <option value="4">Humanidades y ciencias de la conducta</option>
-                                <option value="5">Ciencias sociales y economía</option>
-                                <option value="6">Biotecnología y ciencias agropecuarias</option>
-                                <option value="7">Ciencias de la ingeniería</option>
-                                <option value="8">Investigación multidisciplinaria</option>
+                                <label for="">Area</label><br>
+                                <select class="form-control" style="width: 50%;" name="area" id="">
+                                    <option value="1">Físico matemáticas y ciencias de la tierra</option>
+                                    <option value="2">Biología y química</option>
+                                    <option value="3">Medicina y ciencias de la salud</option>
+                                    <option value="4">Humanidades y ciencias de la conducta</option>
+                                    <option value="5">Ciencias sociales y economía</option>
+                                    <option value="6">Biotecnología y ciencias agropecuarias</option>
+                                    <option value="7">Ciencias de la ingeniería</option>
+                                    <option value="8">Investigación multidisciplinaria</option>
 
-                            </select>
+                                </select>
                             </div>
 
                         </div>
@@ -47,46 +61,39 @@
 
             <div class="card " style="width: 100%;">
                 <div class="card-header">
-                    <p>...</p>
+                    <p>Media</p>
                 </div>
                 <div class="card-body">
 
                     <div class="form-group">
-                        
+
                         <label for="">URL - Página web</label><br>
                         <input style="width: 50%;" type="url" name="url" autofocus><br>
 
                         <label for="">Enlace video de youtube</label><br>
                         <input style="width: 50%;" type="url" name="urlyt" autofocus><br>
 
+
+
                         <label for="">Imagen o logo</label><br>
                         <input style="width: 50%;" enctype="multipart/form-data" type="file" name="fx" autofocus><br>
 
                         <label for="">One Paper - PDF</label><br>
-                        <input style="width: 50%;" enctype="multipart/form-data"{{! thnk's multer :3 }} type="file" name="fx" autofocus><br>
+                        <input style="width: 50%;" enctype="multipart/form-data" {{! thnk's multer :3 }} type="file"
+                            name="fx" autofocus><br>
+
+                        <label for="">Banner </label><br>
+                        <input style="width: 50%;" enctype="multipart/form-data" type="file" name="fx" autofocus><br>
 
                         <script>
                             const input = document.querySelector('input[type="file"]');
-                            input.addEventListener('change',(e)=>{
+                            input.addEventListener('change', (e) => {
                                 console.log(input.files);
 
                                 const reader = new FileReader();
-                            },false);
+                            }, false);
                         </script>
 
-                        <label for="">Nombre de la universidad</label><br>
-                        <input style="width: 50%;" type="text" name="univer" autofocus><br>
-
-                        <label for="">Mail del Investigador</label><br>
-                        <input style="width: 50%;" type="mail" name="mail_investigator" autofocus><br>
-
-
-
-                        <label for="">Nombre del Investigador</label><br>
-                        <input style="width: 50%;" type="text" name="name_investigator" autofocus><br>
-                        
-                        <label for="">Num del Investigador</label><br>
-                        <input style="width: 50%;" type="text" name="cvu" autofocus><br>
 
 
                         <label for="">Descripción</label><br>
@@ -104,4 +111,3 @@
 
         </div>
     </div>
-

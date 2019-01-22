@@ -94,7 +94,7 @@
                             <div class="desc">Curious developer {{user.id_user}}</div>
                             <div class="desc">Tech geek {{user.pass}}</div>
                         </div>
-                        <div class="bottom">
+                        <div class="bottom top2">
                             <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
                                 <i class="fa fa-twitter"></i>
                             </a>
@@ -123,6 +123,13 @@
                         </ol>
                     </nav>
                     {{#each json.admins}}
+
+
+
+
+
+
+
                     <div class="col-12 col-sm-6  col-md-4 col-lg-3">
                         <div class="card text-center">
                             <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{img}}'>
@@ -140,7 +147,8 @@
                                 <div>
                                     {{url}}
                                 </div>
-                                {{#each json.links}}
+
+                                {{!-- {{#each json.links}}
                                 <div class="col-12 col-sm-6  col-md-4 col-lg-3">
                                     <div class="card text-center">
                                         <a href="">
@@ -178,14 +186,13 @@
 
 
                                 {{/each}}
-
+                                --}}
 
                             </div>
                             <div class="card-footer">
                                 <div>
                                     <br>
-                                    <a href="/links/delete/{{id}}" class="btn btn-default btn-sm">Delete</a>
-                                    <a href="/links/update/{{id}}" class="btn btn-default btn-sm">Update</a>
+                                    <a href="/links/updateadmin/{{id_user}}" class="btn btn-default btn-sm">Update</a>
 
                                 </div>
                                 <div>
@@ -195,6 +202,8 @@
                             </div>
                         </div>
                     </div>
+
+
 
 
 
@@ -208,6 +217,9 @@
 
                     {{! termina menu 2}}
                 </div>
+
+
+
                 <div id="menu3" class="tab-pane fade p3">
                     <h3>Administración Proyectos</h3>
 
@@ -302,6 +314,9 @@
 
             </div>
         </div>
+
+
+
 
 
 

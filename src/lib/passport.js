@@ -54,11 +54,12 @@ passport.use('local.signup', new LocalStrategy({
         name,
         pass,
         mail: req.body.mail ? req.body.mail : '',
-        role: req.body.role ? parseInt(req.body.role) : 1,
+        role: req.body.role ? parseInt(req.body.role) : 2,
         status : 1,
         data : '',
         admin : null,
-        owner: null
+        owner: null,
+        Id_usercreated: req.body.Id_usercreated
     };
    
     

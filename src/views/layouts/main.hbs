@@ -47,6 +47,9 @@
 		.p3 {
 			padding: 3%;
 		}
+				.p1 {
+			padding: .05%;
+		}
 
 		.card {
 			margin: 0 auto;
@@ -55,6 +58,13 @@
 			/* Added */
 			margin-bottom: 10px;
 			/* Added */
+		}
+
+		.table-wrapper-scroll-y {
+			display: block;
+			max-height: 200px;
+			overflow-y: auto;
+			-ms-overflow-style: -ms-autohiding-scrollbar;
 		}
 	</style>
 
@@ -73,7 +83,7 @@
 	--}}
 
 
-		<div class="container p-4">
+	<div class="container p-4">
 		{{{ body }}}
 	</div>
 

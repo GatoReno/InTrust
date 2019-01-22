@@ -45,10 +45,10 @@ router.get('/x', (req, res) => {
 
 
 //añadir proyecto upload.array("uploads",2),
-router.post('/add', isLoggedIn, upload.array('fx', 2), async (req, res) => {
+router.post('/add', isLoggedIn, upload.array('fx', 3), async (req, res) => {
 
     //console.log(req.body);
-    //console.log(req.files);
+    console.log(req.files);
 
     let originalname = req.files[0].originalname;
     const img64 = image2base64('uploads/' + originalname).then(
@@ -64,19 +64,34 @@ router.post('/add', isLoggedIn, upload.array('fx', 2), async (req, res) => {
 
     let originalnamepdf = req.files[1].originalname;
     const pdf64 = pdf2base64('uploads/' + originalnamepdf)
-    .then(
-        (respdf) => {
-            console.log('pdf converted');
+        .then(
+            (respdf) => {
+                console.log('pdf converted');
                 newLink.onepayer = respdf;
                 //console.log(response); //cGF0aC90by9maWxlLmpwZw==
-        }
-    )
-    .catch(
-        (error) => {
-            console.log(error); //Exepection error....
-        }
-    )
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); //Exepection error....
+            }
+        )
 
+
+    let originalnamet = req.files[2].originalname;
+    const img64t = image2base64('uploads/' + originalnamet).then(
+        (resp) => {
+            console.log('imaget converted');
+            newLink.imgt = resp;
+        }
+    ).catch(
+        (errs) => {
+            console.log(errs)
+        }
+    );
+
+
+   
 
 
     const newLink = {
@@ -100,26 +115,26 @@ router.post('/add', isLoggedIn, upload.array('fx', 2), async (req, res) => {
     };
 
     console.log(newLink);
-    try{
+    try {
         await pool.query('INSERT INTO LINKS set ?', [newLink]);
         //}
-    
+
         fs.unlinkSync('uploads/' + originalname);
         req.flash('success', 'Proyecto Generado');
         //res.send('recibido');
         const msn = 'creado con éxito';
         //res.render('links/createsuccess',{newLink,msn});
         res.redirect('/links/proyectos');
-    }catch(err){
+    } catch (err) {
         res.redirect('/profile/', 500, req.flash('errores', err.name + ':' + err.message));
     }
 
-    
+
     //for(i= 0; i < 100; i++){
 
     //
 
-    
+
 });
 
 //ruta proyectos
@@ -157,35 +172,18 @@ router.get('/delete/:id', isLoggedIn, async (req, res) => {
     res.redirect('/links/proyectos');
 });
 
-//editar proyecto
-router.get('/update/:id', isLoggedIn, async (req, res) => {
+
+
+router.get('/viewproyect/:id', async (req, res) => {
+
+
     const {
         id
     } = req.params;
-    const links = await pool.query('Select * from Links where id  = ?', [id]);
-
-
-    console.log(links[0])
-
-    res.render('links/edit', {
-        links: links[0]
-    });
-});
-
-router.get('/proyect', (req, res) => {
-    res.render('links/formEmprendedor');
-});
-
-
-
-router.get('/viewproyect/:id',async (req,res)=>{
-    
-
-    const { id } = req.params;
     console.log(id);
 
     const links = await pool.query('Select * from Links where id  = ?', [id]);
-    const goals = await pool.query('Select * from Goals where id_proyecto = ? ',[id]);
+    const goals = await pool.query('Select * from Goals where id_proyecto = ? ', [id]);
     const owners = await pool.query('Select * from Users where owner = 1');
 
 
@@ -200,35 +198,33 @@ router.get('/viewproyect/:id',async (req,res)=>{
 });
 
 
-router.post('/add/goal/',async (req,res) =>{
-    
+router.post('/add/goal/', async (req, res) => {
 
-const newGoal = {
-    id_proyecto: req.body.id_proyecto,
-    id_owner: req.body.id_owner,
-    Id_usercreated: req.body.id_user,
-    title: req.body.title,
-    descrip: req.body.descrip,
-    init: req.body.init,
-    end: req.body.end,
-    status: '1'
-};
 
-console.log(newGoal)
-try{
-    await pool.query('Insert into Goals set ?',[newGoal]);
-    req.flash('success', 'Meta Generada con éxito');
-    res.redirect('/links/viewproyect/'+newGoal.id_proyecto);
-    
-}
-catch(e){
-    req.flash('errores', 'Error : '+e);
-    res.redirect('/links/viewproyect/'+newGoal.id_proyecto);
-    console.log(e)
-}
+    const newGoal = {
+        id_proyecto: req.body.id_proyecto,
+        id_owner: req.body.id_owner,
+        Id_usercreated: req.body.id_user,
+        title: req.body.title,
+        descrip: req.body.descrip,
+        init: req.body.init,
+        end: req.body.end,
+        status: '1'
+    };
+
+    console.log(newGoal)
+    try {
+        await pool.query('Insert into Goals set ?', [newGoal]);
+        req.flash('success', 'Meta Generada con éxito');
+        res.redirect('/links/viewproyect/' + newGoal.id_proyecto);
+
+    } catch (e) {
+        req.flash('errores', 'Error : ' + e);
+        res.redirect('/links/viewproyect/' + newGoal.id_proyecto);
+        console.log(e)
+    }
 
 });
-
 
 
 //query de edición
@@ -256,4 +252,44 @@ router.post('/update/edit/:id', isLoggedIn, async (req, res) => {
 
 
 });
+
+//editar proyecto
+router.get('/update/:id', isLoggedIn, async (req, res) => {
+    const {
+        id
+    } = req.params;
+    const links = await pool.query('Select * from Links where id  = ?', [id]);
+
+
+    console.log(links[0])
+
+    res.render('links/edit', {
+        links: links[0]
+    });
+});
+
+router.get('/proyect', (req, res) => {
+    res.render('links/formEmprendedor');
+});
+
+//editar proyecto
+router.get('/updateadmin/:id', isLoggedIn, async (req, res) => {
+    const {
+        id
+    } = req.params;
+    const admin = await pool.query('Select * from users where id_user  = ?', [id]);
+
+
+    console.log(admin[0])
+
+    res.render('links/edit', {
+        admin: admin[0]
+    });
+});
+
+router.get('/proyect', (req, res) => {
+    res.render('links/formEmprendedor');
+});
+
+
 module.exports = router;
