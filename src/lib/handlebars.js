@@ -1,5 +1,7 @@
 const { format } = require('timeago.js');
 const Handlebars = require('handlebars');
+var moment = require('moment');
+moment().format();
 
 const helpers = {};
 
@@ -20,6 +22,22 @@ Handlebars.registerHelper("switch", function(value, options) {
     }
   });
   
-  
+  var DateFormats = {
+    short: "DD/MM/YYYY",
+    long: "dddd DD.MM.YYYY HH:mm"
+};
+
+Handlebars.registerHelper("formatDate", function(datetime, format) {
+  if (moment) {
+    // can use other formats like 'lll' too
+    format = DateFormats[format] || format;
+    return moment(datetime).format(format);
+  }
+  else {
+    return datetime;
+  }
+});
+
+
 
 module.exports = helpers

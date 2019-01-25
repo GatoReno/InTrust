@@ -10,37 +10,20 @@
                                      <img style=' width:100%;height:240px;'  src='data:image/jpeg;base64, {{links.imgt}}'>
 
                           -->
-checar parallax
+            checar parallax
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-9  col-md-4 col-lg-12 top2">
+    <div class="col-xs-3 col-sm-3  col-md-3 col-lg-3 top2" align="center">
 
 
         <!-- Container element -->
         <div class="card ">
             <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{links.img}}'>
 
-            <p>creado el día: {{timeago created_at}}</p>
+            <p>creado : {{ formatDate created_at "short"}}</p>
 
             <a href="#" title='proyecto.pdf'>clica aqui</a>
-
-
-            <script>
-
-                function downloadPDF(pdf) {
-                    const linkSource = `data:application/pdf;base64,${pdf}`;
-                    const downloadLink = document.createElement("a");
-                    const fileName = "vct_illustration.pdf";
-
-                    downloadLink.href = linkSource;
-                    downloadLink.download = fileName;
-                    downloadLink.click();
-                }
-
-
-            </script>
-
 
             <br>
             <a href="">{{links.phone}}</a>
@@ -58,7 +41,7 @@ checar parallax
                     {{links.description}}
                 </div>
                 <div>
-                    {{links.url}}
+                    {{links.mail}}
                 </div>
             </div>
             <div class="card-footer">
@@ -75,6 +58,23 @@ checar parallax
 
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="col-xs-9 col-sm-9  col-md-9 col-lg-9 top2"align="center">
+
+        <div class="embed-responsive embed-responsive-16by9" id="myCode">
+            {{!--
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/OZHinPswQ1g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+             --}}
+             {{{links.urlyt}}}
+
+  <script>
+                    //$('#myCode').append('{{links.urlyt}}');
+             </script>
+            
         </div>
     </div>
 
@@ -119,15 +119,27 @@ checar parallax
                             Meta</a></li>
                 </ol>
             </nav>
-            <div class="col-lg-12">
-                {{#if goals}}
-                <div class="table-wrapper-scroll-y">
+
+            {{#if goals}}
+            <div class="col-lg-2 col-md-2 col-sm-3">
+                <div align="center">
+                    <div class="alert alert-danger" style="">
+                        <label for="">Metas por alcanzar </label><br><label for=""> {{missgoals.missgoals}}</label>
+                    </div>
+                    <div class="alert alert-success" style="">
+                        <label for="">Metas por alcanzadas </label><br><label for=""> {{successgoals.successgoals}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-9">
+
+                <div class="top2 table-wrapper-scroll-y">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Nombre </th>
-                                <th scope="col">Fecha inicial</th>
-                                <th scope="col">Fecha de cierre</th>
+                                <th scope="col">Inicio</th>
+                                <th scope="col">Cierre</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Estatus</th>
                             </tr>
@@ -137,24 +149,24 @@ checar parallax
                             {{#each goals}}
                             <tr>
                                 <th>{{title}}</th>
-                                <td>{{init}}</td>
-                                <td>{{end}}</td>
+                                <td>{{formatDate init "short"}}</td>
+                                <td>{{formatDate end "short"}}</td>
                                 <td>{{descrip}}</td>
                                 <td>
 
                                     {{#switch status}}
                                     {{#case "1"}}
-                                    <div class="alert alert-danger" role="alert">
-                                        <p>En espera</p>
+                                    <div class="alert alert-danger" align="center" role="alert">
+                                        <label>En espera</plabel>
                                     </div>
                                     {{/case}}
                                     {{#case "2"}}
-                                    <div class="alert alert-info" role="alert">
-                                        <p>Alcanzado</p>
+                                    <div class="alert alert-sucess" align="center" role="alert">
+                                        <label>Alcanzado</label>
                                     </div> {{/case}}
                                     {{#case "3"}}
-                                    <div class="alert alert-success" role="alert">
-                                        <p>Alcanzado</p>
+                                    <div class="alert alert-info" align="center" role="alert">
+                                        <label>Alcanzado</label>
                                     </div>
 
                                     {{/case}}
@@ -173,20 +185,27 @@ checar parallax
                         </tbody>
                     </table>
                 </div>
-
-                {{else}} <p>Este poryecto no tiene metas</p>
-
-
-
-                {{/if}}
-
-
             </div>
+            {{else}} <p>Este poryecto no tiene metas</p>
+
+
+
+            {{/if}}
+
+
+
 
         </div>
         <div id="menu2noticias" class="tab-pane fade p3">
-            <h3>Noticias</h3>
             {{#if goals}}
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="" data-toggle="modal" data-target="#exampleModal2">Agregar
+                            Noticia</a></li>
+                </ol>
+            </nav>
+
             <div class="table-wrapper-scroll-y">
                 <table class="table table-hover">
                     <thead>
@@ -203,8 +222,7 @@ checar parallax
                         {{#each news}}
                         <tr>
                             <th>{{title}}</th>
-                            <td>{{init}}</td>
-                            <td>{{end}}</td>
+
                             <td>{{descrip}}</td>
                             <td>
 
@@ -293,6 +311,211 @@ checar parallax
             </div>
         </div>
     </div>
+
+
+
+
+    <!-- Modal News -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Notica - Proyecto <b>{{links.title}}</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/links/addNew" method="post">
+                        <div class="form-group">
+
+                            <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
+
+                            <input type="text" class="hide" name="id_proyecto" value="{{links.id}}">
+
+                            <label for="exampleInputEmail1">Titulo de la noticia</label>
+                            <input type="text" name="title" class="form-control" id="" aria-describedby="emailHelp"
+                                placeholder="Proyecto ha avanzado su primer 10%">
+                            <small id="" class="form-text text-muted">Este texto aparecerá como cabezaera de tu
+                                noticia.</small>
+                            <br>
+                            <img id="PreviewImageT" class="" width="150" height="200" src="" alt="Imagen Titular" style="height:100px;" />
+
+                            <br>
+                            <br>
+                            <label for="">Inserte una imagen de cabecera</label>
+
+                            <input name="fx" onchange="readURLT(this);" type="file" enctype="multipart/form-data"
+                                required />
+
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <small id="" class="form-text text-muted">Primer Texto (solo 500 caracteres).</small>
+                            <textarea id="field" name="text1" class="form-control" onkeyup="countChar(this)" required></textarea>
+                            <div class="charNum pull-right" id="charNum"></div>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <small id="" class="form-text text-muted">Segundo Texto (solo 500 caracteres).</small>
+                            <textarea id="field" name="text2" class="form-control" onkeyup="countChar2(this)"></textarea>
+                            <div class="charNum pull-right" id="charNum2"></div>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <small id="" class="form-text text-muted">Tercer Texto (solo 500 caracteres).</small>
+                            <textarea id="field" name="text3" class="form-control" onkeyup="countChar3(this)"></textarea>
+                            <div class="charNum pull-right" id="charNum3"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <img id="PreviewImage" class="" width="150" height="200" src="" alt="Imagen 1" style="height:100px;" />
+
+                            <br>
+                            <label for="">Inserte una imagen</label>
+
+                            <input name="fx" onchange="readURL(this);" type="file" enctype="multipart/form-data" />
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <img id="PreviewImage2" class="" width="150" height="200" src="" alt="Imagen 2" style="height:100px;" />
+
+                            <br>
+                            <label for="">Inserte una imagen</label>
+
+                            <input name="fx" onchange="readURL2(this);" type="file" enctype="multipart/form-data" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <img id="PreviewImage3" class="" width="150" height="200" src="" alt="Imagen 2" style="height:100px;" />
+
+                            <br>
+                            <label for="">Inserte una imagen</label>
+
+                            <input name="fx" onchange="readURL3(this);" type="file" enctype="multipart/form-data" />
+
+                        </div>
+                        <script>
+                            function readURL(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage').attr('src', e.target.result);
+                                        $("#PreviewImage").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage').attr('src', "#");
+                                }
+                            }
+
+                            function readURL2(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage2').attr('src', e.target.result);
+                                        $("#PreviewImage2").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage2').attr('src', "#");
+                                }
+                            }
+
+
+                            function readURL3(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage3').attr('src', e.target.result);
+                                        $("#PreviewImage3").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage3').attr('src', "#");
+                                }
+                            }
+                        </script>
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery-1.5.js"></script>
+    <script>
+
+        function readURLT(input) {
+            if (input.files && input.files[0]) {//Check if input has files.
+                var reader = new FileReader(); //Initialize FileReader.
+
+                reader.onload = function (e) {
+                    $('#PreviewImageT').attr('src', e.target.result);
+                    $("#PreviewImageT").resizable({ aspectRatio: true, maxHeight: 300 });
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                $('#PreviewImageT').attr('src', "#");
+            }
+        }
+        function countChar(val) {
+            var len = val.value.length;
+            if (len >= 500) {
+                val.value = val.value.substring(0, 500);
+                if (len == 500) {
+                    $('#charNum').text('máximo alcanzado');
+                }
+            }
+            else {
+                $('#charNum').text(500 - len + ' solo restan');
+            }
+        };
+        function countChar2(val) {
+            var len = val.value.length;
+            if (len >= 500) {
+                val.value = val.value.substring(0, 500);
+                if (len == 500) {
+                    $('#charNum2').text('máximo alcanzado');
+                }
+            }
+            else {
+                $('#charNum2').text(500 - len + ' solo restan');
+            }
+        };
+
+        function countChar3(val) {
+            var len = val.value.length;
+            if (len >= 500) {
+                val.value = val.value.substring(0, 500);
+                if (len == 500) {
+                    $('#charNum3').text('máximo alcanzado');
+                }
+            }
+            else {
+                $('#charNum3').text(500 - len + ' solo restan');
+            }
+        };
+    </script>
 
     {{!Admin user end}}
     {{/if}}

@@ -38,10 +38,6 @@ router.get('/add', isLoggedIn, (req, res) => {
     res.render('links/add');
 });
 
-//ruta x
-router.get('/x', (req, res) => {
-    res.send('x');
-});
 
 
 //añadir proyecto upload.array("uploads",2),
@@ -90,10 +86,6 @@ router.post('/add', isLoggedIn, upload.array('fx', 3), async (req, res) => {
         }
     );
 
-
-   
-
-
     const newLink = {
         //este json es que le vamos a mandar al query por tanto los nombres de los objetos
         //deben de coincidir con los nombres de las tablas para poder hacer el query
@@ -136,6 +128,22 @@ router.post('/add', isLoggedIn, upload.array('fx', 3), async (req, res) => {
 
 
 });
+
+
+//ruta add noticia
+
+/*
+router.get('/addNew', (req, res) => {
+    res.render('links/addNew');
+});
+*/
+
+router.post('/addNew',isLoggedIn,upload.array('fx',4),(req,res)=>{
+    console.log(req.files)
+
+});
+
+
 
 //ruta proyectos
 router.get('/proyectos', async (req, res) => {
@@ -183,17 +191,25 @@ router.get('/viewproyect/:id', async (req, res) => {
     console.log(id);
 
     const links = await pool.query('Select * from Links where id  = ?', [id]);
+    const pdfx = await pool.query('Select onepayer from Links where id  = ?', [id]);
     const goals = await pool.query('Select * from Goals where id_proyecto = ? ', [id]);
     const owners = await pool.query('Select * from Users where owner = 1');
 
+    const missgoals = await pool.query('Select Count(*) as missgoals from Goals where status = 1 and id_proyecto = ? ', [id]);
+    const successgoals = await pool.query('Select count(*) as successgoals from Goals  where  status = 2 and id_proyecto = ? ', [id]);;
 
-    console.log(links[0]);
-    console.log(goals[0]);
+    console.log(pdfx[0]);
+    //console.log(successgoals[0]);
+    //console.log(links[0]);
+    //console.log(goals[0]);
 
     res.render('links/viewproyect', {
         links: links[0],
         goals: goals,
-        owners: owners
+        owners: owners,
+        missgoals: missgoals[0],
+        successgoals: successgoals[0],
+        pdfx: pdfx[0].toString('ascii')
     });
 });
 

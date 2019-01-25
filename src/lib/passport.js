@@ -24,7 +24,7 @@ passport.use('local.signin', new LocalStrategy({
             //console.log(validPass);
            
             if (validPass) {
-                done(null, user, req.flash('success', 'Benvenido ' + user.name));
+                done(null, user, req.flash('success', 'Bienvenido ' + user.name));
             } else {
                 done(null, false, req.flash('errores', 'Contraseña invalida.'));
             }

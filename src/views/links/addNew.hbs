@@ -1,0 +1,198 @@
+<div class="container p-4 top2">
+
+    <div class="row">
+        <div class="col-lg-1 col-md-2 col-lg-3 col-xs-2 col-sm-2 col-xl-2"></div>
+        <div class="col-lg-10 col-md-8 col-lg-6 col-xs-8 col-sm-8 col-xl-8">
+            <div class="card">
+
+
+                <br>
+
+                <h3><label for="">Noticia Nueva creada por {{user.name}}</label></h3>
+                <br>
+                <form action="/links/addNew" method="post">
+                    <div class="form-group">
+
+                        <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
+                        <label for="exampleInputEmail1">Titulo de la noticia</label>
+                        <input type="text" name="title" class="form-control" id="" aria-describedby="emailHelp"
+                            placeholder="Proyecto ha avanzado su primer 10%">
+                        <small id="" class="form-text text-muted">Este texto aparecerá como cabezaera de tu noticia.</small>
+                        <br>
+                        <img id="PreviewImageT" class="" width="150" height="200" src="" alt="Imagen Titular" style="height:100px;" />
+
+                        <br>
+                        <br>
+                        <label for="">Inserte una imagen de cabecera</label>
+
+                        <input id="ImageFileUploadT" name="fx" onchange="readURLT(this);" type="file" runat="server"
+                            required />
+                        <script>
+                            function readURLT(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImageT').attr('src', e.target.result);
+                                        $("#PreviewImageT").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImageT').attr('src', "#");
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <small id="" class="form-text text-muted">Primer Texto (solo 500 caracteres).</small>
+                        <textarea id="field" name="text1" class="form-control" onkeyup="countChar(this)" required></textarea>
+                        <div class="charNum pull-right" id="charNum"></div>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <small id="" class="form-text text-muted">Segundo Texto (solo 500 caracteres).</small>
+                        <textarea id="field" name="text2" class="form-control" onkeyup="countChar2(this)"></textarea>
+                        <div class="charNum pull-right" id="charNum2"></div>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <small id="" class="form-text text-muted">Tercer Texto (solo 500 caracteres).</small>
+                        <textarea id="field" name="text3" class="form-control" onkeyup="countChar3(this)"></textarea>
+                        <div class="charNum pull-right" id="charNum3"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <img id="PreviewImage" class="" width="150" height="200" src="" alt="Imagen 1" style="height:100px;" />
+
+                        <br>
+                        <label for="">Inserte una imagen</label>
+
+                        <input id="ImageFileUpload" name="fx" onchange="readURL(this);" type="file" runat="server" />
+                        <script>
+                            function readURL(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage').attr('src', e.target.result);
+                                        $("#PreviewImage").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage').attr('src', "#");
+                                }
+                            }
+                        </script>
+                    </div>
+
+
+                    <div class="form-group">
+                        <img id="PreviewImage2" class="" width="150" height="200" src="" alt="Imagen 2" style="height:100px;" />
+
+                        <br>
+                        <label for="">Inserte una imagen</label>
+
+                        <input id="ImageFileUpload2" name="fx" onchange="readURL2(this);" type="file" runat="server" />
+                        <script>
+                            function readURL2(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage2').attr('src', e.target.result);
+                                        $("#PreviewImage2").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage2').attr('src', "#");
+                                }
+                            }
+                        </script>
+                    </div>
+
+                     <div class="form-group">
+                        <img id="PreviewImage3" class="" width="150" height="200" src="" alt="Imagen 2" style="height:100px;" />
+
+                        <br>
+                        <label for="">Inserte una imagen</label>
+
+                        <input id="ImageFileUpload3" name="fx" onchange="readURL3(this);" type="file" runat="server" />
+                        <script>
+                            function readURL3(input) {
+                                if (input.files && input.files[0]) {//Check if input has files.
+                                    var reader = new FileReader(); //Initialize FileReader.
+
+                                    reader.onload = function (e) {
+                                        $('#PreviewImage3').attr('src', e.target.result);
+                                        $("#PreviewImage3").resizable({ aspectRatio: true, maxHeight: 300 });
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                                else {
+                                    $('#PreviewImage3').attr('src', "#");
+                                }
+                            }
+                        </script>
+                    </div>
+
+
+
+
+                    <div class="form-group row p5">
+                        <button type="submit" class="btn btn-danger pull-right">Crear Noticia </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-2 col-lg-3 col-xs-2 col-sm-2 col-xl-2"></div>
+
+    </div>
+</div>
+
+
+
+
+<script src="http://code.jquery.com/jquery-1.5.js"></script>
+<script>
+    function countChar(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+            val.value = val.value.substring(0, 500);
+            if (len == 500) {
+                $('#charNum').text('máximo alcanzado');
+            }
+        }
+        else {
+            $('#charNum').text(500 - len + ' solo restan');
+        }
+    };
+        function countChar2(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+            val.value = val.value.substring(0, 500);
+            if (len == 500) {
+                $('#charNum2').text('máximo alcanzado');
+            }
+        }
+        else {
+            $('#charNum2').text(500 - len + ' solo restan');
+        }
+    };
+
+            function countChar3(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+            val.value = val.value.substring(0, 500);
+            if (len == 500) {
+                $('#charNum3').text('máximo alcanzado');
+            }
+        }
+        else {
+            $('#charNum3').text(500 - len + ' solo restan');
+        }
+    };
+</script>
