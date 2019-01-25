@@ -94,7 +94,14 @@
                             }, false);
                         </script>
 
-
+                        <br>
+                        <label for="">Owner del Proyecto</label>
+                        <select name="role" id="" required>
+                           {{#each owners}}
+                                <option value="">{{name}}</option>
+                           {{/each}}    
+                        </select>
+                        <br>
 
                         <label for="">Descripción</label><br>
                         <textarea style="width: 100%;" name="descrip" placeholder="Descripción de proyecto">

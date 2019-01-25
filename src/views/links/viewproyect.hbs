@@ -23,11 +23,10 @@
 
             <p>creado : {{ formatDate created_at "short"}}</p>
 
-            <a href="#" title='proyecto.pdf'>clica aqui</a>
-
             <br>
-            <a href="">{{links.phone}}</a>
-            <a href="">
+            <label for="contacto">contacto:</label>
+            <a href="#">{{links.phone}}</a>
+            <a href="#">
 
 
                 <a href="{{links.url}}" target=".blanck">
@@ -37,7 +36,7 @@
                 </a>
             </a>
             <div class="card-body ">
-                <div>
+                <div align="">
                     {{links.description}}
                 </div>
                 <div>
@@ -63,17 +62,9 @@
     <div class="col-xs-9 col-sm-9  col-md-9 col-lg-9 top2"align="center">
 
         <div class="embed-responsive embed-responsive-16by9" id="myCode">
-            {{!--
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/OZHinPswQ1g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-
-             --}}
              {{{links.urlyt}}}
 
-  <script>
-                    //$('#myCode').append('{{links.urlyt}}');
-             </script>
             
         </div>
     </div>

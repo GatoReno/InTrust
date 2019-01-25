@@ -122,92 +122,85 @@
                             <li class="breadcrumb-item active" aria-current="page"></li>
                         </ol>
                     </nav>
-                    {{#each json.admins}}
 
 
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <h3>Administración</h3>
+                        <div class="top2 table-wrapper-scroll-y">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Img</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {{#each json.admins}}
+                                    <tr>
+                                        <td>
+                                            <img style=' width:20px;height:20px;' src='data:image/jpeg;base64, {{img}}'>
+                                        </td>
+                                        <td>
+                                            {{name}}
+                                        </td>
+                                        <td>
+                                            <a href="/links/updateadmin/{{id_user}}" class="btn btn-default btn-sm">Update</a>
+
+                                        </td>
 
 
+                                    </tr>
+                                    {{/each}}
 
-
-
-                    <div class="col-12 col-sm-6  col-md-4 col-lg-3">
-                        <div class="card text-center">
-                            <img style=' width:100px;height:100px;' src='data:image/jpeg;base64, {{img}}'>
-                            <a href="">
-                                <a href="{{id_user}}" target=".blanck">
-                                    <h3 class="card-title text-uppercase">
-                                        {{name}}
-                                    </h3>
-                                </a>
-                            </a>
-                            <div class="card-body ">
-                                <div>
-                                    {{mail}}
-                                </div>
-                                <div>
-                                    {{url}}
-                                </div>
-
-                                {{!-- {{#each json.links}}
-                                <div class="col-12 col-sm-6  col-md-4 col-lg-3">
-                                    <div class="card text-center">
-                                        <a href="">
-                                            <a href="{{url}}" target=".blanck">
-                                                <h3 class="card-title text-uppercase">
-                                                    {{name}}
-                                                </h3>
-                                            </a>
-                                        </a>
-                                        <div class="card-body ">
-                                            <div>
-                                                {{title}}
-                                            </div>
-                                            <div>
-                                                id user : {{id_user}}
-                                            </div>
-
-
-
-                                        </div>
-                                        <div class="card-footer">
-                                            <div>
-                                                <br>
-                                                <a href="{{id}}" class="btn btn-default btn-sm">Info</a>
-
-
-                                            </div>
-                                            <div>
-                                                <br>
-                                                creado el día: {{timeago created_at}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                {{/each}}
-                                --}}
-
-                            </div>
-                            <div class="card-footer">
-                                <div>
-                                    <br>
-                                    <a href="/links/updateadmin/{{id_user}}" class="btn btn-default btn-sm">Update</a>
-
-                                </div>
-                                <div>
-                                    <br>
-                                    creado el día: {{timeago created_at}}
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
 
 
 
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <h3>Owner de proyecto</h3>
+                        <div class="top2 table-wrapper-scroll-y">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Img</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {{#each json.owners}}
+                                    <tr>
+                                        <td>
+                                            <img style=' width:20px;height:20px;' src='data:image/jpeg;base64, {{img}}'>
+                                        </td>
+                                        <td>
+                                            {{name}}
+                                        </td>
+                                        <td>
+                                            <a href="/links/updateadmin/{{id_user}}" class="btn btn-default btn-sm">Update</a>
+
+                                        </td>
 
 
-                    {{/each}}
+                                    </tr>
+                                    {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
                     {{! termina menu 1}}
                 </div>
                 <div id="menu2" class="tab-pane fade p3">
@@ -235,7 +228,7 @@
 
                         <div class="card text-center">
                             <a href="">
-                                <a href="{{url}}" target=".blanck">
+                                <a href="links/viewproyect/{{id}}">
                                     <h3 class="card-title text-uppercase">
                                         {{title}}
                                     </h3>

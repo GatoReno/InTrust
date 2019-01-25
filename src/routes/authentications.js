@@ -49,7 +49,7 @@ router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
         status: 1,
         data: '',
         role: req.body.role ? parseInt(req.body.role) : 3,
-        admin: 1,
+        admin: null,
         owner: null,
         gender: req.body.gender,
         datenac: req.body.datenac,
@@ -62,6 +62,15 @@ router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
         img: '',
         Id_usercreated: req.body.Id_usercreated
     };
+
+    switch(newUser.role){
+        case 2:
+        newUser.owner = 1;
+        break
+
+        case 3:
+        newUser.admin = 1;
+    }
     newUser.pass = await helpers.encryptPass(req.body.pass);
     let {
         originalname
@@ -83,7 +92,19 @@ router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
 
     try {
         const result = await pool.query('Insert into Users set ?', [newUser]);
-        res.redirect('/profile/', req.flash('success', 'Admin creado con éxito'));
+
+        let typeuser = newUser.role;
+        let fnuser = '';
+        switch(typeuser){
+            case 2:
+             fnuser = 'Owner';
+            break;
+    
+            case 3:
+             fnuser = 'Admin';
+            break;
+        }
+        res.redirect('/profile/', req.flash('success', ' '+fnuser+' creado con éxito'));
         return console.log(result);
 
     } catch (err) {
@@ -131,10 +152,12 @@ router.post('/signup', passport.authenticate('local.signup', {
 router.get('/profile', isLoggedIn, async (req, res) => {
 
     const admins = await pool.query('Select * from Users where admin  = 1');
+    const owners = await pool.query('Select * from Users where owner  = 1');
     const links = await pool.query('Select * from links order by created_at desc');
     const json = {
         admins,
-        links
+        links,
+        owners
     };
     var count = Object.keys(json).length;
     console.log('objects in json' + count)

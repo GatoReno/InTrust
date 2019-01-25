@@ -34,8 +34,11 @@ const {
 
 //ruta añadir
 router.get('/add', isLoggedIn, (req, res) => {
-
-    res.render('links/add');
+    const owners =  pool.query('SELECT * FROM USERS where owner = 1');
+    console.log(owners);
+    res.render('links/add',{
+        owners :owners
+    });
 });
 
 
@@ -138,7 +141,7 @@ router.get('/addNew', (req, res) => {
 });
 */
 
-router.post('/addNew',isLoggedIn,upload.array('fx',4),(req,res)=>{
+router.post('/addNew',isLoggedIn,upload.array('fx',4), async (req,res)=>{
     console.log(req.files)
 
 });
