@@ -36,6 +36,39 @@ const upload = multer({
 
 
 
+router.post('/deleteadmin', isLoggedIn, async (req, res) => {
+    console.log(req.body);
+    const idadmin = req.body.id_admin;
+    const iduser = req.body.id_user;
+    const pass = req.body.confirmpass;
+    const rows = await pool.query('Select pass from users where id_user = ?', [idadmin]);
+
+    if (rows.length > 0) {
+        const user = rows[0];
+        const spass = user.pass;
+        const validPass = await helpers.matchPass(pass, spass);
+
+
+        if (validPass) {
+            console.log(validPass);
+            const deleteuser = await pool.query('Delete from users where id_user = ?', [iduser]);
+
+            // done(null, user, req.flash('success', 'Usuario eliminado ' + user.name));
+            res.redirect('/profile/', 200, req.flash('sucess', 'Usuario eliminado '));
+        } else {
+            res.redirect('/profile/', 500, req.flash('errores', 'Contraseña de administración invalida.'));
+        }
+    }
+
+
+
+
+    // res.send('deleteadmin');
+});
+
+
+
+
 
 router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
     //console.log(req.body);
@@ -63,13 +96,13 @@ router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
         Id_usercreated: req.body.Id_usercreated
     };
 
-    switch(newUser.role){
+    switch (newUser.role) {
         case 2:
-        newUser.owner = 1;
-        break
+            newUser.owner = 1;
+            break
 
         case 3:
-        newUser.admin = 1;
+            newUser.admin = 1;
     }
     newUser.pass = await helpers.encryptPass(req.body.pass);
     let {
@@ -95,17 +128,17 @@ router.post('/signup/subadmin', upload.single('fx'), async (req, res, err) => {
 
         let typeuser = newUser.role;
         let fnuser = '';
-        switch(typeuser){
+        switch (typeuser) {
             case 2:
-             fnuser = 'Owner';
-            break;
-    
+                fnuser = 'Owner';
+                break;
+
             case 3:
-             fnuser = 'Admin';
-            break;
+                fnuser = 'Admin';
+                break;
         }
-        res.redirect('/profile/', req.flash('success', ' '+fnuser+' creado con éxito'));
-        return console.log(result);
+        res.redirect('/profile/', req.flash('success', ' ' + fnuser + ' creado con éxito'));
+        //return console.log(result);
 
     } catch (err) {
         res.redirect('/profile/', 500, req.flash('errores', err.name + ':' + err.message));
@@ -154,10 +187,12 @@ router.get('/profile', isLoggedIn, async (req, res) => {
     const admins = await pool.query('Select * from Users where admin  = 1');
     const owners = await pool.query('Select * from Users where owner  = 1');
     const links = await pool.query('Select * from links order by created_at desc');
+    const news = await pool.query('SELECT News.title title, News.id id_news, News.id_proyecto id_proyecto,News.created_at created_at,Links.title proyecto FROM News INNER JOIN Links ON Links.id = News.id_proyecto order by News.created_at desc ');
     const json = {
         admins,
         links,
-        owners
+        owners,
+        news
     };
     var count = Object.keys(json).length;
     console.log('objects in json' + count)

@@ -33,11 +33,11 @@ const {
 } = require('../lib/auth');
 
 //ruta añadir
-router.get('/add', isLoggedIn, (req, res) => {
-    const owners =  pool.query('SELECT * FROM USERS where owner = 1');
+router.get('/add', isLoggedIn, async (req, res) => {
+    const owners = await pool.query('SELECT * FROM USERS where owner = 1');
     console.log(owners);
-    res.render('links/add',{
-        owners :owners
+    res.render('links/add', {
+        owners: owners
     });
 });
 
@@ -141,10 +141,6 @@ router.get('/addNew', (req, res) => {
 });
 */
 
-router.post('/addNew',isLoggedIn,upload.array('fx',4), async (req,res)=>{
-    console.log(req.files)
-
-});
 
 
 
@@ -197,7 +193,7 @@ router.get('/viewproyect/:id', async (req, res) => {
     const pdfx = await pool.query('Select onepayer from Links where id  = ?', [id]);
     const goals = await pool.query('Select * from Goals where id_proyecto = ? ', [id]);
     const owners = await pool.query('Select * from Users where owner = 1');
-
+    const news = await pool.query('SELECT * from NEWS where id_proyecto = ?', [id]);
     const missgoals = await pool.query('Select Count(*) as missgoals from Goals where status = 1 and id_proyecto = ? ', [id]);
     const successgoals = await pool.query('Select count(*) as successgoals from Goals  where  status = 2 and id_proyecto = ? ', [id]);;
 
@@ -210,6 +206,7 @@ router.get('/viewproyect/:id', async (req, res) => {
         links: links[0],
         goals: goals,
         owners: owners,
+        news: news,
         missgoals: missgoals[0],
         successgoals: successgoals[0],
         pdfx: pdfx[0].toString('ascii')
@@ -222,7 +219,6 @@ router.post('/add/goal/', async (req, res) => {
 
     const newGoal = {
         id_proyecto: req.body.id_proyecto,
-        id_owner: req.body.id_owner,
         Id_usercreated: req.body.id_user,
         title: req.body.title,
         descrip: req.body.descrip,
@@ -308,6 +304,19 @@ router.get('/updateadmin/:id', isLoggedIn, async (req, res) => {
 
 router.get('/proyect', (req, res) => {
     res.render('links/formEmprendedor');
+});
+
+router.get('/newsinfo/:id', async (req, res) => {
+    const {
+        id
+    } = req.params;
+    //const news = await pool.query('SELECT * FROM news where id = ?', [id]);
+    const news = await pool.query('SELECT News.text3 text3 ,News.text2 text2 ,News.text1 text1 , News.title title, News.id id_news, News.id_proyecto id_proyecto,News.created_at created_at,Links.title proyecto FROM News INNER JOIN Links ON Links.id = News.id_proyecto where News.id = ?',[id]);
+
+    console.log(news[0]);
+    res.render('links/newsinfo', {
+        news: news[0]
+    })
 });
 
 

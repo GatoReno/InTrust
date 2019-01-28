@@ -163,7 +163,7 @@
 
 
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <h3>Owner de proyecto</h3>
                         <div class="top2 table-wrapper-scroll-y">
                             <table class="table table-hover">
@@ -205,7 +205,43 @@
                 </div>
                 <div id="menu2" class="tab-pane fade p3">
                     <h3>Noticias</h3>
-                    <p>Some content in menu 2.</p>
+                    <div class="top2 table-wrapper-scroll-y">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Proyecto</th>
+                                    <th scope="col">Fecha</th>
+                                    <th>Acción</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each json.news}}
+                                <tr>
+
+                                    <td>
+                                        {{title}}
+                                    </td>
+                                    <td>{{proyecto}}</td>
+                                    <td>
+                                        {{formatDate created_at "short"}}</td>
+                                    <td>
+                                        <a href="/links/newsinfo/{{id_news}}" class="btn btn-default btn-sm">Update</a>
+
+                                    </td>
+
+
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
 
 
                     {{! termina menu 2}}
@@ -228,7 +264,7 @@
 
                         <div class="card text-center">
                             <a href="">
-                                <a href="links/viewproyect/{{id}}">
+                                <a href="/links/viewproyect/{{id}}">
                                     <h3 class="card-title text-uppercase">
                                         {{title}}
                                     </h3>

@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="containr">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <canvas id="myChart" width="250px" height="250px"></canvas>
+            <script type="text/javascript">
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'line',
+
+                    // The data for our dataset
+                    data: {
+                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        datasets: [{
+                            label: "My First dataset",
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [0, 10, 5, 2, 20, 30, 45],
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            </script>
+        </div>
+
+
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10">
+            <canvas id="myChart2" width="250px" height="250px"></canvas>
+            <script type="text/javascript">
+                var oilCanvas = document.getElementById("myChart2");
+
+
+
+                var oilData = {
+                    labels: [
+                        "Saudi Arabia",
+                        "Russia",
+                        "Iraq",
+                        "United Arab Emirates",
+                        "Canada"
+                    ],
+                    datasets: [
+                        {
+                            data: [133.3, 86.2, 52.2, 51.2, 50.2],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#63FF84",
+                                "#84FF63",
+                                "#8463FF",
+                                "#6384FF"
+                            ]
+                        }]
+                };
+
+                var pieChart = new Chart(oilCanvas, {
+                    type: 'pie',
+                    data: oilData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+
+
+            </script>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>

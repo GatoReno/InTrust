@@ -22,24 +22,3 @@ helpers.matchPass = async(password,savedPassword) => {
 
 module.exports = helpers;
 
-/*
-1 mucho tiempo jesica
-2 mi rostro
-5 abe dice : queremos meter la escen ade la alberca
-pero que no estè fuera de lugar, si se puede
-punto 3 no
-4 oscuridad
-
-6 1-24 difuminado raro 
-7 {
-
-    opcion 1 : que se quite por algo nuevo lo que sea/
-    piscina o ella o lo que sea
-    opcion 2 : que se queda tal y como esta
-    opcion 3 : que se que pero retocada 
-}
-
-15
-17 - 21 = 4
-
-*/

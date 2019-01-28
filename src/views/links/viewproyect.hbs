@@ -203,9 +203,7 @@
                         <tr>
                             <th scope="col">Nombre </th>
                             <th scope="col">Fecha inicial</th>
-                            <th scope="col">Fecha de cierre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Estatus</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -214,33 +212,12 @@
                         <tr>
                             <th>{{title}}</th>
 
-                            <td>{{descrip}}</td>
+                            <th>{{formatDate created_at "short"}}</th>
                             <td>
 
-                                {{#switch status}}
-                                {{#case "1"}}
-                                <div class="alert alert-danger" role="alert">
-                                    <p>En espera</p>
-                                </div>
-                                {{/case}}
-                                {{#case "2"}}
-                                <div class="alert alert-info" role="alert">
-                                    <p>Alcanzado</p>
-                                </div> {{/case}}
-                                {{#case "3"}}
-                                <div class="alert alert-success" role="alert">
-                                    <p>Alcanzado</p>
-                                </div>
-
-                                {{/case}}
-                                {{/switch}}
+                                <a href="btn btn-secondary"></a>
                             </td>
-                            <td>
-                                <a class="btn btn-default" href="" type="text" value="Update">Update</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" href="" type="text" value="Eliminar">Eliminar</a>
-                            </td>
+                          
 
                         </tr>
                         {{/each}}
@@ -279,13 +256,7 @@
                         <br>
 
                         <input type="text" name="title" class="form-item" required><br><br>
-                        <div class="form-group">
-                            <select name="id_owner" id="" required>
-                                {{#each owners}}
-                                <option value="{{id_user}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
+                       
                         <br>
                         <input class="form-group" type="date" name="init" required><br>
                         <input type="date" class="form-group" name="end" required><br>
@@ -318,7 +289,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/links/addNew" method="post">
+                    <form action="/addN" method="post">
                         <div class="form-group">
 
                             <input type="text" class="hide" name="Id_usercreated" value="{{user.id_user}}">
@@ -337,8 +308,7 @@
                             <br>
                             <label for="">Inserte una imagen de cabecera</label>
 
-                            <input name="fx" onchange="readURLT(this);" type="file" enctype="multipart/form-data"
-                                required />
+                            <input name="fx" onchange="readURLT(this);" type="file" enctype="multipart/form-data" required />
 
                         </div>
                         <div class="form-group">

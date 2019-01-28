@@ -60,6 +60,7 @@ app.use((req,res,next) => {
 //routes
 app.use(require('./routes'));
 app.use(require('./routes/authentications'));
+app.use(require('./routes/news'));
 app.use('/links',require('./routes/links'));
 
 
